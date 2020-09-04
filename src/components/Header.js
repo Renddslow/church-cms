@@ -7,6 +7,7 @@ const HeaderStyled = styled.header`
   border-bottom: 1px solid #e3e5e9;
   width: 100%;
   background: #fff;
+  z-index: 1000;
   display: grid;
   position: sticky;
   top: 0;

@@ -49,7 +49,13 @@ const Actions = styled.div`
   justify-content: end;
 `;
 
-export default ({ columns = [], data = [] }) => {
+const dt = new Intl.DateTimeFormat('en-US', {
+  day: 'numeric',
+  month: 'short',
+  year: 'numeric',
+});
+
+export default ({ columns = [], data = [], resourceType }) => {
   return (
     <TableStyled>
       <TableHeader>
@@ -64,11 +70,15 @@ export default ({ columns = [], data = [] }) => {
         {data.map((item) => (
           <TableRow key={item.permalink}>
             {columns.map(({ key }) => (
-              <TableItem key={`${item.permalink}--${key}`}>{item[key]}</TableItem>
+              <TableItem key={`${item.permalink}--${key}`}>
+                {key.toLowerCase().includes('date') ? dt.format(new Date(item[key])) : item[key]}
+              </TableItem>
             ))}
             <TableItem>
               <Actions>
-                <ButtonLink to={item.permalink.replace(/(.md)/g, '')}>Edit</ButtonLink>
+                <ButtonLink to={`${resourceType}/${item.permalink.replace(/(.md)/g, '')}`}>
+                  Edit
+                </ButtonLink>
                 <Button disabled>Published</Button>
                 <Button appearance="danger">Delete</Button>
               </Actions>
