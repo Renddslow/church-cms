@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 
 import Button, { ButtonLink } from './Button';
@@ -11,17 +11,38 @@ const TableStyled = styled.table`
   border-spacing: 0;
   border-collapse: collapse;
   margin-top: 24px;
-`;
-
-const TableHeader = styled.thead`
-  background: #f8fafc;
-  border-bottom: 1px solid #eceff5;
+  position: relative;
 `;
 
 const TableHeaderItem = styled.th`
   text-align: left;
   padding: 12px;
   box-sizing: border-box;
+  position: sticky;
+  top: 71px;
+  background: #000;
+  color: #fff;
+  border-bottom: 1px solid #eceff5;
+  transition: border-radius 0.2s ease-out;
+
+  &:first-child {
+    border-top-left-radius: ${({ beCurvy }) => (beCurvy ? `8px` : 0)};
+  }
+
+  &:last-child {
+    border-top-right-radius: ${({ beCurvy }) => (beCurvy ? `8px` : 0)};
+  }
+
+  &::after {
+    content: '';
+    display: block;
+    height: 1px;
+    width: 100%;
+    position: absolute;
+    bottom: -1px;
+    background: #eceff5;
+    left: 0;
+  }
 `;
 
 const TableRow = styled.tr`
@@ -56,16 +77,33 @@ const dt = new Intl.DateTimeFormat('en-US', {
 });
 
 export default ({ columns = [], data = [], resourceType }) => {
+  const headRef = useRef();
+  const [beCurvy, setBeCurvy] = useState(true);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (e) => {
+        setBeCurvy(!!e[0].isIntersecting);
+      },
+      { rootMargin: '-114px 0px 0px 0px' },
+    );
+
+    observer.observe(headRef.current);
+    return () => observer.disconnect();
+  }, [setBeCurvy]);
+
   return (
     <TableStyled>
-      <TableHeader>
+      <thead ref={headRef}>
         <tr>
           {columns.map(({ key, label }) => (
-            <TableHeaderItem key={key}>{label}</TableHeaderItem>
+            <TableHeaderItem beCurvy={beCurvy} key={key}>
+              {label}
+            </TableHeaderItem>
           ))}
-          <TableHeaderItem />
+          <TableHeaderItem beCurvy={beCurvy} />
         </tr>
-      </TableHeader>
+      </thead>
       <tbody>
         {data.map((item) => (
           <TableRow key={item.permalink}>

@@ -11,22 +11,21 @@ const List = (props) => {
       key: 'title',
       label: 'Title',
     },
-    {
-      key: 'series',
-      label: 'Series',
-    },
-    {
-      key: 'date',
-      label: 'Date Preached',
-    },
   ];
 
   return (
     <div>
-      <ListHeader title="Sermons" type="sermons" />
-      <Table resourceType="sermons" columns={columns} data={props.items} />
+      <ListHeader title="Pages" type="pages" />
+      <Table
+        resourceType="pages"
+        columns={columns}
+        data={props.items.map((data) => ({
+          ...data,
+          title: data.permalink === '_index.md' ? 'Home' : data.title,
+        }))}
+      />
     </div>
   );
 };
 
-export default withList(List, 'sermons');
+export default withList(List, 'pages');

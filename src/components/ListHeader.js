@@ -18,7 +18,13 @@ const Header = styled.header`
 const ListHeader = ({ title, type }) => (
   <Header>
     <Title>{title}</Title>
-    <ButtonOutbound href={`https://flatlandchurch.com/${type}`}>Preview</ButtonOutbound>
+    <ButtonOutbound
+      target="_blank"
+      rel="nofollow, noreferrer"
+      href={`https://flatlandchurch.com/${type}`}
+    >
+      Preview
+    </ButtonOutbound>
     <ButtonLink to={`/${type}/new`} appearance="primary">
       + Add New
     </ButtonLink>

@@ -9,7 +9,13 @@ import Panel from './components/Panel';
 
 import { withUser } from './utils/UserContext';
 
+/** Pages */
+import { ClassesList } from './pages/classes';
+import { LocationsList } from './pages/locations';
+import { PagesList } from './pages/pages';
+import { SeriesList } from './pages/series';
 import { SermonList } from './pages/sermons';
+import { ResourcesList } from './pages/resources';
 
 const Main = styled.main`
   width: 100%;
@@ -43,17 +49,35 @@ const Dashboard = ({ user }) => {
               <Redirect to="/dashboard" />
             </Route>
             <Route path="/dashboard">🖥</Route>
+
             <Route path="/sermons/:permalink">Sermon Link</Route>
             <Route path="/sermons">
               <SermonList />
             </Route>
-            <Route path="/series">📓</Route>
+
+            <Route path="/series">
+              <SeriesList />
+            </Route>
+
             <Route path="/blog">🤓</Route>
-            <Route path="/pages">📄</Route>
-            <Route path="/classes">👩‍🏫</Route>
-            <Route path="/locations">📌</Route>
-            <Route path="/resources">📚</Route>
-            <Route path="/volunteer">👩‍🚒</Route>
+
+            <Route path="/pages">
+              <PagesList />
+            </Route>
+
+            <Route path="/classes">
+              <ClassesList />
+            </Route>
+
+            <Route path="/locations">
+              <LocationsList />
+            </Route>
+
+            <Route path="/resources">
+              <ResourcesList />
+            </Route>
+
+            <Route path="/volunteer">TBD</Route>
           </Switch>
         </Main>
       </div>

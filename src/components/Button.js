@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 import { Link } from 'react-router-dom';
 
-const getBackground = ({ appearance }) => {
+const getBackground = ({ appearance, disabled }) => {
   switch (appearance) {
     case 'danger':
       return '#FF5630';
@@ -10,7 +10,7 @@ const getBackground = ({ appearance }) => {
     case 'success':
       return '#83cf97';
     default:
-      return 'rgba(9, 30, 66, 0.04)';
+      return `rgba(9, 30, 66, ${disabled ? 0 : 0.04})`;
   }
 };
 
@@ -35,7 +35,6 @@ const mixin = css`
   border: none;
   font-size: 16px;
   font-weight: 600;
-  opacity: ${({ disabled }) => (disabled ? 0.7 : 1)};
   cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
   display: block;
 `;

@@ -11,22 +11,14 @@ const List = (props) => {
       key: 'title',
       label: 'Title',
     },
-    {
-      key: 'series',
-      label: 'Series',
-    },
-    {
-      key: 'date',
-      label: 'Date Preached',
-    },
   ];
 
   return (
     <div>
-      <ListHeader title="Sermons" type="sermons" />
-      <Table resourceType="sermons" columns={columns} data={props.items} />
+      <ListHeader title="Resources" type="resources" />
+      <Table resourceType="resources" columns={columns} data={props.items} />
     </div>
   );
 };
 
-export default withList(List, 'sermons');
+export default withList(List, 'resources');
