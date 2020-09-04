@@ -64,11 +64,11 @@ export default ({ columns = [], data = [] }) => {
         {data.map((item) => (
           <TableRow key={item.permalink}>
             {columns.map(({ key }) => (
-              <TableItem id={`${item.permalink}--${key}`}>{item[key]}</TableItem>
+              <TableItem key={`${item.permalink}--${key}`}>{item[key]}</TableItem>
             ))}
             <TableItem>
               <Actions>
-                <ButtonLink to={`/sermons/hello`}>Edit</ButtonLink>
+                <ButtonLink to={item.permalink.replace(/(.md)/g, '')}>Edit</ButtonLink>
                 <Button disabled>Published</Button>
                 <Button appearance="danger">Delete</Button>
               </Actions>

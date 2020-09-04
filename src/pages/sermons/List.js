@@ -4,20 +4,22 @@ import Table from '../../components/Table';
 import ListHeader from '../../components/ListHeader';
 
 const List = () => {
+  const columns = [
+    {
+      key: 'title',
+      label: 'Title',
+    },
+    {
+      key: 'date',
+      label: 'Date Preached',
+    },
+  ];
+
   return (
     <div>
       <ListHeader title="Sermons" type="sermons" />
       <Table
-        columns={[
-          {
-            key: 'title',
-            label: 'Title',
-          },
-          {
-            key: 'date',
-            label: 'Date Preached',
-          },
-        ]}
+        columns={columns}
         data={[
           {
             permalink: '/sermons/stuff.md',

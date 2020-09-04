@@ -49,4 +49,9 @@ export const ButtonLink = styled(Link)`
   text-decoration: none;
 `;
 
+export const ButtonOutbound = styled.a`
+  ${mixin};
+  text-decoration: none;
+`;
+
 export default Button;
