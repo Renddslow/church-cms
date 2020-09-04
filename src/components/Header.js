@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { withUser } from '../utils/UserContext';
 
 const HeaderStyled = styled.header`
   height: 70px;
@@ -49,17 +50,21 @@ const Avatar = styled.div`
   align-items: center;
 `;
 
-const Header = () => {
+const Header = ({ user }) => {
+  const [first, ...rest] = user.name.split(' ');
   return (
     <HeaderStyled>
       <Nav>
         <IconButton>
           <span className="material-icons">notifications_none</span>
         </IconButton>
-        <Avatar>MM</Avatar>
+        <Avatar>
+          {first[0]}
+          {rest.slice(-1).pop()[0]}
+        </Avatar>
       </Nav>
     </HeaderStyled>
   );
 };
 
-export default Header;
+export default withUser(Header);

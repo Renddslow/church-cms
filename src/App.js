@@ -1,26 +1,28 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
-import { Login } from './pages/login';
+import { Login, Authorize } from './pages/login';
+import UserProvider from './utils/UserContext';
+import Dashboard from './Dashboard';
 
 function App() {
-  useEffect(() => {
-    const token = window.localStorage.getItem('fca:token');
-    if (!token && !['/login', '/authorize'].includes(window.location.pathname)) {
-      return (window.location.href = '/login');
-    }
-  }, []);
+  const token = window.localStorage.getItem('fca:token');
+  if (!token && !['/login', '/authorize'].includes(window.location.pathname)) {
+    return (window.location.href = '/login');
+  }
 
   return (
-    <Router>
-      <Switch>
-        <Route path="/login">
-          <Login />
-        </Route>
-        <Route path="/authorize">Authorize</Route>
-        <Route path="/"></Route>
-      </Switch>
-    </Router>
+    <UserProvider>
+      <Router>
+        <Switch>
+          <Route exact path="/login">
+            <Login />
+          </Route>
+          <Route exact path="/authorize" render={(props) => <Authorize {...props} />} />
+          <Dashboard />
+        </Switch>
+      </Router>
+    </UserProvider>
   );
 }
 

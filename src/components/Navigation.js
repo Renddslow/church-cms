@@ -101,7 +101,7 @@ const Rule = styled.hr`
   -webkit-appearance: none;
 `;
 
-export default ({ children = [] }) => {
+export default ({ children = [], permissions = [] }) => {
   return (
     <NavigationPanel>
       <NavHeader>
@@ -109,14 +109,16 @@ export default ({ children = [] }) => {
         Flatland Church
       </NavHeader>
       <Menu>
-        {children.map(({ to, label, icon }) => (
-          <MenuItem key={to}>
-            <MenuLink to={to} activeClassName="active">
-              <Icon className="material-icons">{icon}</Icon>
-              <span>{label}</span>
-            </MenuLink>
-          </MenuItem>
-        ))}
+        {children
+          .filter(({ rule }) => !rule || permissions.includes(rule))
+          .map(({ to, label, icon }) => (
+            <MenuItem key={to}>
+              <MenuLink to={to} activeClassName="active">
+                <Icon className="material-icons">{icon}</Icon>
+                <span>{label}</span>
+              </MenuLink>
+            </MenuItem>
+          ))}
       </Menu>
       <Settings>
         <Rule />
