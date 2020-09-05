@@ -6,7 +6,7 @@ import Sidebar from './Sidebar';
 import Tabs from './Tabs';
 
 const EditorGrid = styled.div`
-  grid-template-columns: minmax(0, 66%) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 70%) minmax(0, 1fr);
   grid-gap: 56px;
   display: grid;
   box-sizing: border-box;

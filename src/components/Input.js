@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import FieldWrapper from './FieldWrapper';
 
 const InputStyled = styled.input`
   -webkit-appearance: none;
@@ -16,30 +17,15 @@ const InputStyled = styled.input`
   }
 `;
 
-const Grid = styled.div`
-  display: grid;
-  grid-gap: 4px;
-
-  &:focus-within label {
-    color: #5087de;
-  }
-`;
-
-const Label = styled.label`
-  font-size: 12px;
-  font-weight: 600;
-`;
-
 const Input = ({ label, ...props }) => {
   const otherProps = { ...props };
   if (props.labelHidden) {
     otherProps['aria-label'] = label;
   }
   return (
-    <Grid>
-      {!props.labelHidden && <Label htmlFor={props.id}>{label}</Label>}
+    <FieldWrapper label={label} id={props.id} labelHidden={props.labelHidden}>
       <InputStyled {...props} />
-    </Grid>
+    </FieldWrapper>
   );
 };
 
