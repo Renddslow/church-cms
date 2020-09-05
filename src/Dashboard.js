@@ -10,13 +10,13 @@ import Panel from './components/Panel';
 import { withUser } from './utils/UserContext';
 
 /** Pages */
+import { BlogList } from './pages/blog';
 import { ClassesList } from './pages/classes';
 import { LocationsList } from './pages/locations';
 import { PagesList } from './pages/pages';
 import { SeriesList } from './pages/series';
-import { SermonList } from './pages/sermons';
+import { SermonList, SermonSingle } from './pages/sermons';
 import { ResourcesList } from './pages/resources';
-import { BlogList } from './pages/blog';
 
 const Main = styled.main`
   width: 100%;
@@ -51,7 +51,7 @@ const Dashboard = ({ user }) => {
             </Route>
             <Route path="/dashboard">🖥</Route>
 
-            <Route path="/sermons/:permalink">Sermon Link</Route>
+            <Route path="/sermons/:permalink" render={SermonSingle} />
             <Route path="/sermons">
               <SermonList />
             </Route>
@@ -81,6 +81,8 @@ const Dashboard = ({ user }) => {
             </Route>
 
             <Route path="/volunteer">TBD</Route>
+
+            <Route path="/settings">⚙️ Settings</Route>
           </Switch>
         </Main>
       </div>
