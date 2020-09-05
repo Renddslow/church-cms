@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import Title from './Title';
 import Sidebar from './Sidebar';
 import Tabs from './Tabs';
+import Content from './Content';
 
 const EditorGrid = styled.div`
   grid-template-columns: minmax(0, 70%) minmax(0, 1fr);
@@ -18,7 +19,9 @@ const Editor = ({ data = {}, sidebarSchema }) => (
     <Title value={data.title} />
     <EditorGrid>
       <Tabs>
-        <div title="Content">Hello World</div>
+        <div title="Content">
+          <Content />
+        </div>
         <div title="SEO">This is some seo stuff</div>
       </Tabs>
       <Sidebar schema={sidebarSchema} data={data} />

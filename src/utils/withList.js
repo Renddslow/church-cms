@@ -4,7 +4,7 @@ import api from './api';
 import qs from 'qs';
 
 const withList = (Wrapper, resource, orderBy = '-date') => (props) => {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [items, setItems] = useState([]);
   const { page = 1 } = qs.parse(window.location.search, { ignoreQueryPrefix: true });
 
@@ -24,7 +24,7 @@ const withList = (Wrapper, resource, orderBy = '-date') => (props) => {
     window.dispatchEvent(event);
   }, [loading]);
 
-  return loading && !items.length ? (
+  return loading || !items.length ? (
     <div />
   ) : (
     <Wrapper

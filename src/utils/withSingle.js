@@ -1,17 +1,26 @@
 import React, { useEffect, useState } from 'react';
+import pProps from 'p-props';
 
 import api from './api';
 
-const withSingle = (Wrapper) => (props) => {
-  const [loading, setLoading] = useState(false);
+const withSingle = (Wrapper, resources = {}) => (props) => {
+  const [loading, setLoading] = useState(true);
   const [data, setData] = useState({});
+  const [res, setResources] = useState({});
+
+  const getResources = (r) =>
+    Object.keys(r).reduce((acc, k) => {
+      acc[k] = api(`/options${r[k]}`);
+      return acc;
+    }, {});
 
   useEffect(() => {
-    setLoading(true);
-    api(`/files${window.location.pathname}`).then((d) => {
-      setData(d);
-      setLoading(false);
-    });
+    Promise.all([
+      api(`/files${window.location.pathname}`).then((d) => {
+        setData(d);
+      }),
+      pProps(getResources(resources)).then((obj) => setResources(obj)),
+    ]).then(() => setLoading(false));
   }, []);
 
   useEffect(() => {
@@ -19,7 +28,11 @@ const withSingle = (Wrapper) => (props) => {
     window.dispatchEvent(event);
   }, [loading]);
 
-  return loading && !Object.keys(data).length ? <div /> : <Wrapper {...props} data={data} />;
+  return loading || !Object.keys(data).length ? (
+    <div />
+  ) : (
+    <Wrapper {...props} data={data} resources={res} />
+  );
 };
 
 export default withSingle;

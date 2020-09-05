@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^7.1.2",
     "dot-prop": "^5.2.0",
     "history": "^5.0.0",
+    "p-props": "^4.0.0",
     "pagr": "^0.1.0",
     "qs": "^6.9.4",
     "react": "^16.13.1",
