@@ -21,7 +21,7 @@ const Editor = ({ data = {}, sidebarSchema }) => (
         <div title="Content">Hello World</div>
         <div title="SEO">This is some seo stuff</div>
       </Tabs>
-      <Sidebar schema={sidebarSchema} />
+      <Sidebar schema={sidebarSchema} data={data} />
     </EditorGrid>
   </form>
 );

@@ -51,7 +51,7 @@ const Dashboard = ({ user }) => {
             </Route>
             <Route path="/dashboard">🖥</Route>
 
-            <Route path="/sermons/:permalink" render={SermonSingle} />
+            <Route path="/sermons/:permalink" render={(props) => <SermonSingle {...props} />} />
             <Route path="/sermons">
               <SermonList />
             </Route>

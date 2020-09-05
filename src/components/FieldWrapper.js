@@ -5,13 +5,13 @@ const Grid = styled.div`
   display: grid;
   grid-gap: 4px;
 
-  &:focus-within label {
+  &:focus-within > label {
     color: #5087de;
   }
 `;
 
 const Label = styled.label`
-  font-size: 12px;
+  font-size: 16px;
   font-weight: 600;
 `;
 
