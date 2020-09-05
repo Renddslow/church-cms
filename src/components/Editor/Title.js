@@ -26,7 +26,14 @@ const ButtonGrid = styled.div`
 
 const Title = (props) => (
   <TitleGrid>
-    <TitleInput labelHidden label="Title" placeholder="Title" value="Stuff and Things" />
+    <TitleInput
+      name="title"
+      labelHidden
+      label="Title"
+      placeholder="Title"
+      value={props.value}
+      onChange={props.onChange}
+    />
     <ButtonGrid>
       <ButtonOutbound
         href={`https://flatlandchurch.com${window.location.pathname}`}
