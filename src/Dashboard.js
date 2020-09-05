@@ -16,6 +16,7 @@ import { PagesList } from './pages/pages';
 import { SeriesList } from './pages/series';
 import { SermonList } from './pages/sermons';
 import { ResourcesList } from './pages/resources';
+import { BlogList } from './pages/blog';
 
 const Main = styled.main`
   width: 100%;
@@ -59,7 +60,9 @@ const Dashboard = ({ user }) => {
               <SeriesList />
             </Route>
 
-            <Route path="/blog">🤓</Route>
+            <Route path="/blog">
+              <BlogList />
+            </Route>
 
             <Route path="/pages">
               <PagesList />
