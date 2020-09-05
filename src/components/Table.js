@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
+import pagr from 'pagr';
+import { Link } from 'react-router-dom';
 
 import Button, { ButtonLink } from './Button';
 
@@ -70,13 +72,69 @@ const Actions = styled.div`
   justify-content: end;
 `;
 
+const TableFooterItem = styled(TableItem)`
+  position: sticky;
+  bottom: 0;
+  background: #fff;
+  padding-top: 16px;
+
+  &:first-child {
+    border-bottom-left-radius: 8px;
+  }
+
+  &:last-child {
+    border-bottom-right-radius: 8px;
+  }
+`;
+
+const PageBtn = styled(Link)`
+  font-weight: 600;
+  background: ${({ current }) => (current ? '#0e1f4d' : 'transparent')};
+  color: ${({ current }) => (current ? '#fff' : '#5a6170')};
+  text-decoration: none;
+  border-radius: 4px;
+  padding: 6px 8px;
+  box-sizing: border-box;
+`;
+
+const PageSeparator = styled.span`
+  border-radius: 4px;
+  padding: 6px 8px;
+  box-sizing: border-box;
+  font-weight: 600;
+  color: #5a6170;
+`;
+
+const PaginationGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(
+    ${(props) => React.Children.count(props.children)},
+    minmax(0, max-content)
+  );
+  grid-gap: 4px;
+  align-items: center;
+  max-width: max-content;
+  margin: 0 auto;
+`;
+
+const Icon = styled(PageSeparator).attrs({
+  className: 'material-icons',
+})`
+  display: flex;
+  align-items: center;
+  font-size: 18px;
+  padding: ${({ disabled }) => (disabled ? `6px 8px` : 0)};
+  color: ${({ disabled }) => (disabled ? '#ccc' : '#5a6170')};
+  cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
+`;
+
 const dt = new Intl.DateTimeFormat('en-US', {
   day: 'numeric',
   month: 'short',
   year: 'numeric',
 });
 
-export default ({ columns = [], data = [], resourceType }) => {
+export default ({ columns = [], data = [], resourceType, currentPage, pages }) => {
   const headRef = useRef();
   const [beCurvy, setBeCurvy] = useState(true);
 
@@ -124,6 +182,42 @@ export default ({ columns = [], data = [], resourceType }) => {
           </TableRow>
         ))}
       </tbody>
+      <tfoot>
+        <tr>
+          <TableFooterItem colSpan={columns.length + 1}>
+            <PaginationGrid>
+              {currentPage === 1 ? (
+                <Icon disabled>chevron_left</Icon>
+              ) : (
+                <PageBtn to={`?page=${currentPage - 1}`}>
+                  <Icon>chevron_left</Icon>
+                </PageBtn>
+              )}
+              {!!pages &&
+                pagr(currentPage - 1, pages, 5).map((val, idx) =>
+                  val.type === 'separator' ? (
+                    <PageSeparator key={`${val.type}-${idx}`}>...</PageSeparator>
+                  ) : (
+                    <PageBtn
+                      key={`${val.type}-${val.page}`}
+                      to={`?page=${val.page}`}
+                      current={val.current}
+                    >
+                      {val.page}
+                    </PageBtn>
+                  ),
+                )}
+              {currentPage === pages ? (
+                <Icon disabled>chevron_right</Icon>
+              ) : (
+                <PageBtn to={`?page=${currentPage + 1}`}>
+                  <Icon>chevron_right</Icon>
+                </PageBtn>
+              )}
+            </PaginationGrid>
+          </TableFooterItem>
+        </tr>
+      </tfoot>
     </TableStyled>
   );
 };

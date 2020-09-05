@@ -16,7 +16,13 @@ const List = (props) => {
   return (
     <div>
       <ListHeader title="Locations" type="locations" />
-      <Table resourceType="locations" columns={columns} data={props.items} />
+      <Table
+        resourceType="locations"
+        columns={columns}
+        data={props.items}
+        pages={props.pageCount}
+        currentPage={props.currentPage}
+      />
     </div>
   );
 };

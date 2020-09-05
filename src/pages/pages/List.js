@@ -23,6 +23,8 @@ const List = (props) => {
           ...data,
           title: data.permalink === '_index.md' ? 'Home' : data.title,
         }))}
+        pages={props.pageCount}
+        currentPage={props.currentPage}
       />
     </div>
   );

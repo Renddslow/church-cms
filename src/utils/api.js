@@ -1,5 +1,7 @@
-const api = (url) => {
-  return fetch(`http://localhost:8080${url}`, {
+const qs = require('qs');
+
+const api = (url, params = {}) => {
+  return fetch(`http://localhost:8080${url}${qs.stringify(params, { addQueryPrefix: true })}`, {
     headers: {
       authorization: `Bearer ${window.localStorage.getItem('fca:token')}`,
     },
